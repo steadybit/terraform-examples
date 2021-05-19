@@ -10,6 +10,11 @@ variable "agent_key" {
   description = "The API key the agent uses."
 }
 
+variable "cluster_name" {
+  type = string
+  description = "Represents the name that will be assigned to this Kubernetes cluster in steadybit."
+}
+
 # See https://registry.terraform.io/providers/hashicorp/helm/latest/docs for detailed instructions and further configuration options.
 resource "helm_release" "steadybit_helm_chart" {
   name  = "steadybit-agent"
@@ -20,5 +25,9 @@ resource "helm_release" "steadybit_helm_chart" {
   set {
     name  = "agent.key"
     value = var.agent_key
+  }
+  set {
+    name = "cluster.name"
+    value = var.cluster_name
   }
 }
